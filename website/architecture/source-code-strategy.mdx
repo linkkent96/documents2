@@ -1,0 +1,167 @@
+---
+id: source-code-strategy
+title: Source Code Strategy
+slug: /source-code-strategy
+---
+
+# Monorepo with Micro-Frontends (MFE)
+
+## 1️⃣ What Is "Monorepo with Micro-Frontends"?
+
+**Monorepo with Micro-Frontends** is an architecture pattern where:
+
+- All micro-frontend applications live inside **one single
+  repository**
+- But they are **logically separated and independently deployable**
+- Teams share tooling, dependencies, and standards
+- Each MFE remains a business-domain boundary
+
+So:
+
+> 🏗 **Monorepo = Source code strategy**\
+> 🧩 **Micro-Frontend = Architecture strategy**
+
+They solve different problems.
+
+---
+
+# 2️⃣ Conceptual Architecture
+
+```
+    monorepo/
+     ├── apps/
+     │    ├── customer-portal/
+     │    ├── staff-portal/
+     │    ├── admin-portal/
+     │
+     ├── packages/
+     │    ├── ui-library/
+     │    ├── auth-sdk/
+     │    ├── api-client/
+     │    ├── design-system/
+     │
+     ├── tooling/
+     │    ├── eslint-config/
+     │    ├── ts-config/
+     │
+     └── package.json
+```
+
+Each app: - Can be built independently - Can be deployed independently -
+Shares common packages
+
+---
+
+# 3️⃣ Why Combine Monorepo + MFE?
+
+## ✅ Dependency Control
+
+Single lock file → no multiple framework versions.
+
+- All MFEs share the same dependency versions
+- Shared design system stays consistent
+
+---
+
+## ✅ Strong Design Governance
+
+Shared UI library:
+
+    packages/ui-library
+
+Prevents UI fragmentation across portals.
+
+---
+
+## ✅ Simplified Refactoring
+
+If you update:
+
+    packages/auth-sdk
+
+You can: - Refactor all apps at once - Run integration tests locally -
+Avoid version mismatch
+
+---
+
+## ✅ Better Developer Experience
+
+Common tooling: - Nx - Turborepo - Lerna - pnpm workspaces
+
+Benefits: - Affected builds - Build caching - Faster CI - Consistent
+lint/test configuration
+
+---
+
+# 4️⃣ Deployment Model
+
+Even though code is in one repo:
+
+- Each MFE builds separately
+- Each MFE deploys independently
+- CI pipeline triggers per affected app
+
+Example:
+
+    apps/customer-portal → deploy to domain A
+    apps/admin-portal → deploy to domain B
+
+Monorepo ≠ Monolith deployment.
+
+---
+
+# 5️⃣ Advantages
+
+Area Benefit
+
+---
+
+Dependency Single version control
+UI/UX Strong design consistency
+Refactor Easier cross-app updates
+Testing Easier integration testing
+Security Shared auth SDK
+CI/CD Affected builds
+
+---
+
+# 6️⃣ Trade-Offs
+
+- Repo size growth
+- CI complexity without proper tooling
+- Risk of reduced team autonomy
+- Governance required for shared packages
+
+---
+
+# 7️⃣ Banking System Context
+
+Suitable for systems with:
+
+- Customer Portal
+- Bank Staff System
+- Admin System
+
+Benefits:
+
+- Shared SSO layer
+- Shared API client
+- Shared role-based permission logic
+- Strong UI consistency
+- Compliance alignment
+
+---
+
+# 🔥 Summary
+
+Monorepo Micro-Frontend
+
+---
+
+Code organization strategy Architectural separation strategy
+One repository Multiple runtime apps
+Shared tooling Domain isolation
+Single dependency tree Independent deployment
+
+> Centralized governance\
+> Decentralized execution

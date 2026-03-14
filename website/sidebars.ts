@@ -1,0 +1,45 @@
+import type {SidebarsConfig} from '@docusaurus/plugin-content-docs';
+
+export default {
+  docs: {
+    'The Basics': ['getting-started', 'intro-react-native-components'],
+    Workflow: ['running-on-device'],
+    Releases: [
+      'releases/releases',
+      'releases/release-levels',
+      'releases/versioning-policy',
+    ],
+    Debugging: ['debugging'],
+    Testing: ['testing-overview'],
+  },
+  api: {
+    APIs: [
+      'accessibilityinfo',
+      {
+        type: 'category',
+        label: 'Globals',
+        collapsed: true,
+        items: ['global-__DEV__'],
+      },
+    ],
+  },
+  components: {
+    'Core Components': [
+      'components-and-apis',
+      'activityindicator',
+      'button',
+      {
+        type: 'category',
+        label: 'Android Components',
+        collapsed: false,
+        items: ['drawerlayoutandroid'],
+      },
+      {
+        type: 'category',
+        label: 'iOS Components',
+        collapsed: false,
+        items: ['inputaccessoryview'],
+      },
+    ],
+  },
+} satisfies SidebarsConfig;
