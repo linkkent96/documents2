@@ -1,0 +1,1 @@
+{"parameters":[{"name":"proxy","in":"path","required":true,"description":"Proxied path for VJA booking ticket API","schema":{"type":"string"}}]}

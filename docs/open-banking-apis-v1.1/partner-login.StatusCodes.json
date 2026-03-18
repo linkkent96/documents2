@@ -1,0 +1,1 @@
+{"responses":{"200":{"description":"Authentication successful","content":{"application/json":{"schema":{"type":"object","properties":{"accessToken":{"type":"string"},"expiresIn":{"type":"integer"}},"required":["accessToken","expiresIn"],"title":"AuthenticationResponse"}}}},"default":{"description":"Partner login"}}}

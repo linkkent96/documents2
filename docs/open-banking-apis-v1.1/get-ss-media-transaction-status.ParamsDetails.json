@@ -1,0 +1,1 @@
+{"parameters":[{"name":"lookupBy","in":"path","required":true,"description":"The field to look up the transaction by (e.g. orderId, transactionId)","schema":{"type":"string"}},{"name":"lookupId","in":"path","required":true,"description":"The value of the lookup field","schema":{"type":"string"}}]}
