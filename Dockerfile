@@ -19,18 +19,31 @@ RUN yarn build
 # ------------------------------
 # Production image
 # ------------------------------
-FROM node:20-alpine AS runner
+FROM nginx:alpine AS runner
 
 WORKDIR /app
 
-# Install a simple static file server
-RUN yarn global add serve
+# Create non-root user for security
+RUN addgroup -g 1001 -S www-data && \
+    adduser -S nginx-user -u 1001 -G www-data
+
+# Copy nginx config
+COPY nginx.conf /etc/nginx/nginx.conf
 
 # Copy built site from builder stage
-COPY --from=builder /app/build ./build
+COPY --from=builder /app/build /usr/share/nginx/html
+
+# Change ownership to non-root user
+RUN chown -R nginx-user:www-data /usr/share/nginx/html && \
+    chown -R nginx-user:www-data /var/cache/nginx && \
+    chown -R nginx-user:www-data /var/log/nginx && \
+    chown -R nginx-user:www-data /etc/nginx/conf.d
+
+# Switch to non-root user
+USER nginx-user
 
 # Expose port
 EXPOSE 3000
 
-# Run the site
-CMD ["serve", "-s", "build", "-l", "3000"]
+# Run nginx
+CMD ["nginx", "-g", "daemon off;"]
